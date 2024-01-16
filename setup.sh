@@ -1,5 +1,5 @@
 #!/bin/sh
-# Forked from https://github.com/pij-se/hifiberry-dac_plus_adc-online_radio/setup.sh
+# Forked from https://github.com/pij-se/hifiberry-dac_plus_adc_pro-online_radio/setup.sh
 #
 # This script assumes you are using a Raspberry Pi 4 with HiFiBerry's DAC+ ADC Pro on
 # Raspbian 11 (Bullseye). It will not work on other versions of Hifiberry's hardware
@@ -63,10 +63,10 @@ sudo useradd icecast -g audio
 sudo mkdir -p /var/icecast
 sudo chown -R icecast /var/icecast
 sudo chown -R icecast /var/log/icecast2
-wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc-online_radio/main/icecast.xml
+wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc_pro-online_radio/main/icecast.xml
 sudo mv /etc/icecast2/icecast.xml /etc/icecast2/icecast.xml.bak
 sudo mv ./icecast.xml /etc/icecast2/icecast.xml
-wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc-online_radio/main/icecast2.service
+wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc_pro-online_radio/main/icecast2.service
 sudo mv ./icecast2.service /lib/systemd/system/icecast2.service
 sudo systemctl enable icecast2
 
@@ -94,15 +94,15 @@ cd ..
 rm -rf ./darkice-1.4
 rm -f ./darkice-1.4.tar.gz
 rm -rf ./darkice-1.5
-wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc-online_radio/main/darkice.cfg
+wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc_pro-online_radio/main/darkice.cfg
 sudo mv ./darkice.cfg /etc/darkice.cfg
-wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc-online_radio/main/darkice.service
+wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc_pro-online_radio/main/darkice.service
 sudo mv ./darkice.service /lib/systemd/system/darkice.service
 sudo systemctl enable darkice
 
 # edit /boot/config.txt to disable on-board audio and enable HiFiBerry audio
 echo "Manually edit /boot/config.txt to disable on-board audio and enable HiFiBerry audio"
-wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc-online_radio/main/boot-config.txt
+wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc_pro-online_radio/main/boot-config.txt
 sudo mv ./boot-config.txt /boot/config.txt
 
 # Reboot
