@@ -16,6 +16,7 @@
 # Determine the platform to find the path to libmp3lame for Darkice.
 echo "install lame.."
 sudo apt install libmp3lame-dev -y
+sudo apt install lame -y
 echo "detecting platform and lame location..."
 case $(uname -m) in *"arm"*) lame=/usr/lib/arm-linux-gnueabihf/ ;; *) ;; esac
 case $(uname -m) in *"x86"*) lame=/usr/lib/x86_64-linux-gnu ;; *) ;; esac
