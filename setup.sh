@@ -13,22 +13,20 @@
 # All rights reserved.
 # Published under the GNU General Public License v3.0.
 
-# Determine the platform to find the path to libmp3lame for Darkice.
+# install lame and set path for darkice
 echo "install lame.."
 sudo apt install libmp3lame-dev -y
 sudo apt install lame -y
 sudo apt install aptitude -y
-#check if lame is installed
+
+#check if lame is installed, probably a better way to do this but this works
 echo "checking if lame is installed..."
 if aptitude search lame | grep "lame - MP3" | sed 's/i //' > /dev/null; then
     echo "lame - MP3 encoding library (frontend) is installed"
 else
     echo "lame - MP3 encoding library (frontend) is not installed, please install it. Exiting.."; exit 1;
 fi
-#case $(uname -m) in *"arm"*) lame=/usr/lib/arm-linux-gnueabihf/ ;; *) ;; esac
-#case $(uname -m) in *"x86"*) lame=/usr/lib/x86_64-linux-gnu ;; *) ;; esac
-#case $(uname -m) in *"aarch64"*) lame=/usr/lib/aarch64-linux-gnu ;; *) ;; esac
-#if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; fi
+
 lame=/usr/bin/lame
 echo "platform: $(uname -m)"
 echo "lame location: $lame"
