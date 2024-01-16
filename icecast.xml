@@ -31,8 +31,8 @@
 	<logging>
 		<accesslog>access.log</accesslog>
 		<errorlog>error.log</errorlog>
-		<loglevel>1</loglevel>
-		<logsize>1000</logsize>
+		<loglevel>4</loglevel>
+		<logsize>10000</logsize>
 		<logarchive>0</logarchive>
 	</logging>
 	<security>
