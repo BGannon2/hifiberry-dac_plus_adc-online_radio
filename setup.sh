@@ -47,6 +47,10 @@ else
     echo "Kernel is already at version 5.15."
 fi
 
+# lock kernel version to 5.15
+sudo apt-mark hold libraspberrypi-bin libraspberrypi-dev libraspberrypi-doc libraspberrypi0
+sudo apt-mark hold raspberrypi-bootloader raspberrypi-kernel raspberrypi-kernel-headers
+
 # Update the package list and upgrade packages.
 echo "checking for package updates..."
 sudo apt update
@@ -79,7 +83,7 @@ cd darkice-1.4/
 mv ./* ../darkice/
 # get darkice 1.5 patch that addresses gcc errors
 mkdir darkice-1.5
-cd darkice-1.5
+cd darkice-1.5/
 wget https://github.com/titixbrest/darkice/releases/download/1.5/darkice-1.5.tar.gz
 tar -xvkf darkice-1.5.tar.gz
 mv ./* ../darkice/
