@@ -28,9 +28,9 @@ if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; 
 current_version=$(uname -r | cut -d'-' -f1)
 
 #set desired kernel version
-desired_version="5.15"
+desired_version="5.15.*"
 
-echo "Current kernel version is $current_version and desired kernel version is $desired_version. If these match skip the next step."
+echo "Current kernel version is $current_version and desired kernel version is range of $desired_version. If current kernel version is in the range of $desired_version, hit n for next step."
 
 echo "Installing kernel version 5.15..."
 # download linux kernel 5.15 from hash
