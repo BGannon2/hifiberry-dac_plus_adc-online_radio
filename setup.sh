@@ -77,6 +77,7 @@ echo "installing darkice..."
 sudo apt install libasound2-dev -y
 sudo apt install libvorbis-dev -y
 sudo apt install libmp3lame-dev -y
+# Make darkice directory for final installation location
 mkdir darkice
 wget https://github.com/rafael2k/darkice/releases/download/v1.4/darkice-1.4.tar.gz
 tar -xvkf darkice-1.4.tar.gz
@@ -102,7 +103,8 @@ wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc_pro-online_
 sudo mv ./darkice.service /lib/systemd/system/darkice.service
 sudo systemctl enable darkice
 
-# edit /boot/config.txt to disable on-board audio and enable HiFiBerry audio
+# Edit /boot/config.txt to disable on-board audio and enable HiFiBerry audio.
+# Ignore failure message, this is expected but the file still gets moved.
 echo "Manually edit /boot/config.txt to disable on-board audio and enable HiFiBerry audio"
 wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc_pro-online_radio/main/boot-config.txt
 sudo mv ./boot-config.txt /boot/config.txt
