@@ -25,11 +25,11 @@ if aptitude search lame | grep "lame - MP3" | sed 's/i //' > /dev/null; then
 else
     echo "lame - MP3 encoding library (frontend) is not installed, please install it. Exiting.."; exit 1;
 fi
-case $(uname -m) in *"arm"*) lame=/usr/lib/arm-linux-gnueabihf/ ;; *) ;; esac
-case $(uname -m) in *"x86"*) lame=/usr/lib/x86_64-linux-gnu ;; *) ;; esac
-case $(uname -m) in *"aarch64"*) lame=/usr/lib/aarch64-linux-gnu ;; *) ;; esac
-if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; fi
-
+#case $(uname -m) in *"arm"*) lame=/usr/lib/arm-linux-gnueabihf/ ;; *) ;; esac
+#case $(uname -m) in *"x86"*) lame=/usr/lib/x86_64-linux-gnu ;; *) ;; esac
+#case $(uname -m) in *"aarch64"*) lame=/usr/lib/aarch64-linux-gnu ;; *) ;; esac
+#if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; fi
+lame=/usr/bin/
 echo "platform: $(uname -m)"
 echo "lame location: $lame"
 
