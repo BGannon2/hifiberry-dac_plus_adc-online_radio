@@ -94,6 +94,7 @@ echo "downloading darkice-1.5 patch..."
 wget https://github.com/titixbrest/darkice/releases/download/1.5/darkice-1.5.tar.gz
 tar -xvkf darkice-1.5.tar.gz
 rsync -a ./* ../darkice/
+echo "moving to darkice installation directory..."
 cd ../darkice
 echo "configuring darkice..."
 ./configure --with-alsa --with-vorbis --with-lame-prefix=$lame
