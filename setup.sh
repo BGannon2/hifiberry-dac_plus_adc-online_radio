@@ -29,7 +29,7 @@ fi
 #case $(uname -m) in *"x86"*) lame=/usr/lib/x86_64-linux-gnu ;; *) ;; esac
 #case $(uname -m) in *"aarch64"*) lame=/usr/lib/aarch64-linux-gnu ;; *) ;; esac
 #if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; fi
-lame=/usr/bin/
+lame=/usr/bin/lame
 echo "platform: $(uname -m)"
 echo "lame location: $lame"
 
@@ -110,7 +110,7 @@ rsync -a ./* ../darkice/
 echo "moving to darkice installation directory..."
 cd ../darkice
 echo "configuring darkice..."
-./configure --with-alsa --with-vorbis --with-lame --with-lame-prefix=$lame
+./configure --with-alsa --with-vorbis --with-lame=$lame
 echo "installing darkice..."
 sudo make install
 sudo make clean
