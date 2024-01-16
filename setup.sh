@@ -30,20 +30,17 @@ current_version=$(uname -r | cut -d'-' -f1)
 # Desired kernel version
 desired_version="5.15"
 
-# Compare the versions
-compare_versions () {
-    awk 'BEGIN{print "'$1'"<"'$2'"}' | bc
-}
+
 
 # Check if the kernel version is less than 5.15
-if [ $(compare_versions "$current_version" "$desired_version") -eq 1 ]; then
+if [ "$(awk 'BEGIN {print ("'$current_version'" < "'$desired_version'") }')" -eq 1 ]; then
     echo "Current kernel version is less than 5.15. Suggest upgrading to 5.15."
-    # Add upgrade command here
+    # downgrade to 5.15 from hash
     sudo apt-get install rpi-update -y
     sudo rpi-update 921f5efeaed8a27980e5a6cfa2d2dee43410d60d
-elif [ $(compare_versions "$current_version" "$desired_version") -eq -1 ]; then
+elif [ "$(awk 'BEGIN {print ("'$current_version'" > "'$desired_version'") }')" -eq 1 ]; then
     echo "Current kernel version is greater than 5.15. Suggest downgrading to 5.15."
-    # Add downgrade command here
+    # downgrade to 5.15 from hash
     sudo apt-get install rpi-update -y
     sudo rpi-update 921f5efeaed8a27980e5a6cfa2d2dee43410d60d
 else
