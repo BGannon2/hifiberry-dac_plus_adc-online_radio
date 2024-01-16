@@ -24,22 +24,25 @@ if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; 
 # so we need to make sure we are using 5.15 to avoid these issues
 # see https://github.com/raspberrypi/linux/issues/5709 for more info
 
+current_version=$(uname -r | cut -d'-' -f1)
+desired_version="5.15.*"
+
+# Check if the current version starts with the desired pattern
+if [[ "$current_version" == "$desired_version"* ]]; then
+    echo "Current kernel version ($current_version) matches the pattern $desired_version."
+else
+    echo "Current kernel version ($current_version) does not match the pattern $desired_version."
+fi
+
+
 # Get the current Linux kernel version
 current_version=$(uname -r | cut -d'-' -f1)
 
 # Desired kernel version
 desired_version="5.15.*"
 
-# Extract numeric part of the desired version
-desired_version_numeric=$(echo "$desired_version" | awk -F'[^0-9.]' '{print $1}')
-
-# Compare the versions
-compare_versions () {
-    awk 'BEGIN {print ("'$1'" >= "'$2'" && "'$1'" < "'$3'") }'
-}
-
 # Check if the kernel version is less than 5.15
-if [ "$(compare_versions "$current_version" "$desired_version_numeric" "999999")" -eq 1 ]; then
+if [[ "$current_version" == "$desired_version"* ]]; then
     echo "Current kernel version ($current_version) is within the range $desired_version."
 else
     echo "Current kernel version ($current_version) is not within the range $desired_version."
