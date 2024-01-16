@@ -28,23 +28,24 @@ if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; 
 current_version=$(uname -r | cut -d'-' -f1)
 
 # Desired kernel version
-desired_version="5.15"
+desired_version="5.15.*"
 
+# Extract numeric part of the desired version
+desired_version_numeric=$(echo "$desired_version" | awk -F'[^0-9.]' '{print $1}')
 
+# Compare the versions
+compare_versions () {
+    awk 'BEGIN {print ("'$1'" >= "'$2'" && "'$1'" < "'$3'") }'
+}
 
 # Check if the kernel version is less than 5.15
-if [ "$(awk 'BEGIN {print ("'$current_version'" < "'$desired_version'") }')" -eq 1 ]; then
-    echo "Current kernel version is less than 5.15. Suggest upgrading to 5.15."
-    # downgrade to 5.15 from hash
-    sudo apt-get install rpi-update -y
-    sudo rpi-update 921f5efeaed8a27980e5a6cfa2d2dee43410d60d
-elif [ "$(awk 'BEGIN {print ("'$current_version'" > "'$desired_version'") }')" -eq 1 ]; then
-    echo "Current kernel version is greater than 5.15. Suggest downgrading to 5.15."
-    # downgrade to 5.15 from hash
-    sudo apt-get install rpi-update -y
-    sudo rpi-update 921f5efeaed8a27980e5a6cfa2d2dee43410d60d
+if [ "$(compare_versions "$current_version" "$desired_version_numeric" "999999")" -eq 1 ]; then
+    echo "Current kernel version ($current_version) is within the range $desired_version."
 else
-    echo "Kernel is already at version 5.15."
+    echo "Current kernel version ($current_version) is not within the range $desired_version."
+    # download linux kernel 5.15 from hash
+    sudo apt-get install rpi-update -y
+    sudo rpi-update 921f5efeaed8a27980e5a6cfa2d2dee43410d60d
 fi
 
 # lock kernel version to 5.15
