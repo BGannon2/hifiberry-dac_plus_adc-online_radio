@@ -107,9 +107,9 @@ rm -rf ./darkice-1.4
 rm -f ./darkice-1.4.tar.gz
 rm -rf ./darkice-1.5
 echo "moving configs..."
-wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc_pro-online_radio/main/darkice.cfg
+wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc_pro-online_radio/main/darkice.cfg
 sudo mv ./darkice.cfg /etc/darkice.cfg
-wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc_pro-online_radio/main/darkice.service
+wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc_pro-online_radio/main/darkice.service
 sudo mv ./darkice.service /lib/systemd/system/darkice.service
 sudo systemctl enable darkice
 
