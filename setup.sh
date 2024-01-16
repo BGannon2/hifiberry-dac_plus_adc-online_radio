@@ -14,11 +14,15 @@
 # Published under the GNU General Public License v3.0.
 
 # Determine the platform to find the path to libmp3lame for Darkice.
+echo "install lame.."
+sudo apt install libmp3lame-dev -y
+echo "detecting platform and lame location..."
 case $(uname -m) in *"arm"*) lame=/usr/lib/arm-linux-gnueabihf/ ;; *) ;; esac
 case $(uname -m) in *"x86"*) lame=/usr/lib/x86_64-linux-gnu ;; *) ;; esac
 case $(uname -m) in *"aarch64"*) lame=/usr/lib/aarch64-linux-gnu ;; *) ;; esac
 if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; fi
 
+echo "platform: $(uname -m)"
 echo "lame location: $lame"
 
 # detect linux kernel version and align it with version 5.15
@@ -67,7 +71,6 @@ sudo systemctl enable icecast2
 echo "installing pre-requisites..."
 sudo apt install libasound2-dev -y
 sudo apt install libvorbis-dev -y
-sudo apt install libmp3lame-dev -y
 sudo apt install automake -y
 sudo apt install autoconf -y
 sudo apt install m4 -y
