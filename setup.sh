@@ -24,17 +24,20 @@ if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; 
 # so we need to make sure we are using 5.15 to avoid these issues
 # see https://github.com/raspberrypi/linux/issues/5709 for more info
 
-# Get the current Linux kernel version
+#get current kernel version
 current_version=$(uname -r | cut -d'-' -f1)
 
-# Desired kernel version
+#set desired kernel version
 desired_version="5.15.*"
 
-# Check if the kernel version is less than 5.15
+echo "Current kernel version is $current_version and desired kernel version is $desired_version"
+
+# Check if the current version starts with the desired pattern
 if [[ "$current_version" == "$desired_version"* ]]; then
-    echo "Current kernel version ($current_version) is within the range $desired_version."
+    echo "Current kernel version ($current_version) matches the pattern $desired_version."
 else
-    echo "Current kernel version ($current_version) is not within the range $desired_version."
+    echo "Current kernel version ($current_version) does not match the pattern $desired_version."
+    echo "Installing kernel version 5.15..."
     # download linux kernel 5.15 from hash
     sudo apt-get install rpi-update -y
     sudo rpi-update 921f5efeaed8a27980e5a6cfa2d2dee43410d60d
@@ -70,25 +73,34 @@ sudo apt install libasound2-dev -y
 sudo apt install libvorbis-dev -y
 sudo apt install libmp3lame-dev -y
 # Make darkice directory for final installation location
-mkdir darkice
+echo "making darkice directory..."
+mkdir -p ./darkice
+echo "downloading darkice-1.4..."
 wget https://github.com/rafael2k/darkice/releases/download/v1.4/darkice-1.4.tar.gz
 tar -xvkf darkice-1.4.tar.gz
 cd darkice-1.4/
 mv ./* ../darkice/
+cd ..
 # get darkice 1.5 patch that addresses gcc errors
-mkdir darkice-1.5
+echo "making darkice-1.5 directory..."
+mkdir -p ./darkice-1.5
 cd darkice-1.5/
+echo "downloading darkice-1.5 patch..."
 wget https://github.com/titixbrest/darkice/releases/download/1.5/darkice-1.5.tar.gz
 tar -xvkf darkice-1.5.tar.gz
 mv ./* ../darkice/
 cd ../darkice
+echo "configuring darkice..."
 ./configure --with-alsa --with-vorbis --with-lame-prefix=$lame
+echo "installing darkice..."
 sudo make install
 sudo make clean
 cd ..
+echo "cleaning up darkice..."
 rm -rf ./darkice-1.4
 rm -f ./darkice-1.4.tar.gz
 rm -rf ./darkice-1.5
+echo "moving configs..."
 wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc_pro-online_radio/main/darkice.cfg
 sudo mv ./darkice.cfg /etc/darkice.cfg
 wget https://raw.githubusercontent.com/pij-se/hifiberry-dac_plus_adc_pro-online_radio/main/darkice.service
