@@ -68,10 +68,21 @@ sudo mv ./icecast2.service /lib/systemd/system/icecast2.service
 sudo systemctl enable icecast2
 
 # Download, configure, and install Darkice.
-echo "installing darkice..."
+echo "installing pre-requisites..."
 sudo apt install libasound2-dev -y
 sudo apt install libvorbis-dev -y
 sudo apt install libmp3lame-dev -y
+sudo apt install automake -y
+sudo apt install autoconf -y
+sudo apt install m4 -y
+sudo apt install perl -y
+sudo apt install libtool -y
+sudo apt install pkg-config -y
+sudo apt install build-essential -y
+sudo apt install git -y
+
+# Download, configure, and install Darkice.
+echo "installing darkice..."
 # Make darkice directory for final installation location
 echo "making darkice directory..."
 mkdir -p ./darkice
