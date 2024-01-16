@@ -102,7 +102,7 @@ rsync -a ./* ../darkice/
 echo "moving to darkice installation directory..."
 cd ../darkice
 echo "configuring darkice..."
-./configure --with-alsa --with-vorbis --with-lame-prefix=$lame
+./configure --with-alsa --with-vorbis --with-lame --with-lame-prefix=$lame
 echo "installing darkice..."
 sudo make install
 sudo make clean
