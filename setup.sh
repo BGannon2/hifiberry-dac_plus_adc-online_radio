@@ -17,7 +17,14 @@
 echo "install lame.."
 sudo apt install libmp3lame-dev -y
 sudo apt install lame -y
-echo "detecting platform and lame location..."
+sudo apt install aptitude -y
+#check if lame is installed
+echo "checking if lame is installed..."
+if aptitude search lame | grep "lame - MP3" | sed 's/i //' > /dev/null; then
+    echo "lame - MP3 encoding library (frontend) is installed"
+else
+    echo "lame - MP3 encoding library (frontend) is not installed, please install it. Exiting.."; exit 1;
+fi
 case $(uname -m) in *"arm"*) lame=/usr/lib/arm-linux-gnueabihf/ ;; *) ;; esac
 case $(uname -m) in *"x86"*) lame=/usr/lib/x86_64-linux-gnu ;; *) ;; esac
 case $(uname -m) in *"aarch64"*) lame=/usr/lib/aarch64-linux-gnu ;; *) ;; esac
