@@ -19,6 +19,8 @@ case $(uname -m) in *"x86"*) lame=/usr/lib/x86_64-linux-gnu ;; *) ;; esac
 case $(uname -m) in *"aarch64"*) lame=/usr/lib/aarch64-linux-gnu ;; *) ;; esac
 if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; fi
 
+echo "lame location: $lame"
+
 # detect linux kernel version and align it with version 5.15
 # there are a lot of issues with newer and older versions of the linux kernel
 # so we need to make sure we are using 5.15 to avoid these issues
