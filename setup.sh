@@ -118,6 +118,7 @@ sudo systemctl enable darkice
 echo "Manually edit /boot/config.txt to disable on-board audio and enable HiFiBerry audio"
 wget https://raw.githubusercontent.com/bgannon2/hifiberry-dac_plus_adc_pro-online_radio/main/boot-config.txt
 sudo mv ./boot-config.txt /boot/config.txt
+echo "ignore above error, it moved the file anyway"
 
 # Reboot
 echo "rebooting..."
