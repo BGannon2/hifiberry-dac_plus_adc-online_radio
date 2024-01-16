@@ -28,20 +28,14 @@ if [ "$lame" = "" ]; then echo "unable to detect platform, exiting..."; exit 1; 
 current_version=$(uname -r | cut -d'-' -f1)
 
 #set desired kernel version
-desired_version="5.15.*"
+desired_version="5.15"
 
-echo "Current kernel version is $current_version and desired kernel version is $desired_version"
+echo "Current kernel version is $current_version and desired kernel version is $desired_version. If these match skip the next step."
 
-# Check if the current version starts with the desired pattern
-if [ "${current_version%"${current_version#"$desired_version"}"}" == "$desired_version" ]; then
-    echo "Current kernel version ($current_version) matches the pattern $desired_version."
-else
-    echo "Current kernel version ($current_version) does not match the pattern $desired_version."
-    echo "Installing kernel version 5.15..."
-    # download linux kernel 5.15 from hash
-    sudo apt-get install rpi-update -y
-    sudo rpi-update 921f5efeaed8a27980e5a6cfa2d2dee43410d60d
-fi
+echo "Installing kernel version 5.15..."
+# download linux kernel 5.15 from hash
+sudo apt-get install rpi-update -y
+sudo rpi-update 921f5efeaed8a27980e5a6cfa2d2dee43410d60d
 
 # lock kernel version to 5.15
 sudo apt-mark hold libraspberrypi-bin libraspberrypi-dev libraspberrypi-doc libraspberrypi0
@@ -90,7 +84,7 @@ echo "downloading darkice-1.4..."
 wget https://github.com/rafael2k/darkice/releases/download/v1.4/darkice-1.4.tar.gz
 tar -xvkf darkice-1.4.tar.gz
 cd darkice-1.4/
-mv ./* ../darkice/
+rsync -a ./* ../darkice/
 cd ..
 # get darkice 1.5 patch that addresses gcc errors
 echo "making darkice-1.5 directory..."
@@ -99,7 +93,7 @@ cd darkice-1.5/
 echo "downloading darkice-1.5 patch..."
 wget https://github.com/titixbrest/darkice/releases/download/1.5/darkice-1.5.tar.gz
 tar -xvkf darkice-1.5.tar.gz
-mv ./* ../darkice/
+rsync -a ./* ../darkice/
 cd ../darkice
 echo "configuring darkice..."
 ./configure --with-alsa --with-vorbis --with-lame-prefix=$lame
