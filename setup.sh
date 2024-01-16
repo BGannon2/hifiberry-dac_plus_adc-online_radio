@@ -33,7 +33,7 @@ desired_version="5.15.*"
 echo "Current kernel version is $current_version and desired kernel version is $desired_version"
 
 # Check if the current version starts with the desired pattern
-if [ "$current_version" == "$desired_version"* ]; then
+if [ "${current_version%"${current_version#"$desired_version"}"}" == "$desired_version" ]; then
     echo "Current kernel version ($current_version) matches the pattern $desired_version."
 else
     echo "Current kernel version ($current_version) does not match the pattern $desired_version."
